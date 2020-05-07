@@ -200,3 +200,30 @@ sample.from.kl.process <- function(tObs=regular.grid(100),
     
     return(y0)
 }
+
+#' The Matern covariance function
+#' @param x a vector
+#' @param y If NULL, then y=x.
+#' @param nu see https://en.wikipedia.org/wiki/Mat?rn_covariance_function
+#' @param rho see https://en.wikipedia.org/wiki/Mat?rn_covariance_function
+#' @param sig see https://en.wikipedia.org/wiki/Mat?rn_covariance_function
+#' @return A matrix M of len(X)*len(Y) is returned, where M(i,j)=C(X(i),Y(j))
+#' @export
+matern <- function(x,y=NULL,nu=1,rho=1,sig=1)
+{
+    if(is.null(y)) y <- x
+    
+    G <- expand.grid(x,x)
+    
+    S <- apply(G,1,function(z){
+        delta <- abs(z[1]-z[2])/rho
+        if(delta == 0)
+            0.25^2
+        else
+            0.25^2 * (sqrt(2*nu)*delta)^nu * besselK(sqrt(2*nu)*delta,nu=nu) / (2^(nu-1)*gamma(nu))
+    })
+    
+    C <- sig^2 * matrix(S,nrow=length(x),ncol=length(y),byrow=F)
+    return(C)
+}
+

@@ -24,3 +24,4 @@ a \code{n*K} matrix
 \description{
 Generate multivariate data with the given mean vector and covariance matrix
 }
+\keyword{internal}

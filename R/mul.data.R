@@ -6,6 +6,7 @@
 #' @param Sigma covariance matrix
 #' @param distribution distribution
 #' @return a \code{n*K} matrix
+#' @keywords internal
 gen.mul.data <- function(n=100,
                          K=2,
                          mu=rep(0,K),
