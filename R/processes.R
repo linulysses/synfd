@@ -68,6 +68,7 @@ centered.process <- function(name=c('WIENER',
 }
 
 
+
 #' create a centered Gaussian process objecct
 #' @param cov a function handle that defines covariance function. It shall take two arguments arg1 and arg2, both are vectors, and \code{cov(arg1,arg2)} returns a matrix \code{R} such that \code{R(i,j)} is the value of the covariance function at \code{(arg1[i],arg2[j])}
 #' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent Gaussian trajectories observed at tObs

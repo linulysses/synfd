@@ -7,7 +7,7 @@
 \method{plot}{dense.fd}(y, ...)
 }
 \arguments{
-\item{y}{the dense data object generated from \code{gen.dense.fda}}
+\item{y}{the dense data object generated from \code{dense.fd}}
 
 \item{...}{other parameters passed to \code{matplot}}
 }

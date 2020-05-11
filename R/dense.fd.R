@@ -65,12 +65,12 @@ dense.fd <- function(mu, X, n, m,
     attr(y,'uncontaminated') <- y0
     attr(y,'grid') <- grid
     attr(y,'domain') <- domain
-    attr(y,'class') <- 'dense.fda'
+    attr(y,'class') <- 'dense.fd'
     return(y)
 }
 
 #' plot densely and regularly observed data
-#' @param y the dense data object generated from \code{gen.dense.fda}
+#' @param y the dense data object generated from \code{dense.fd}
 #' @param ... other parameters passed to \code{matplot}
 #' @export
 plot.dense.fd <- function(y,...)
