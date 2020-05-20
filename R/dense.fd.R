@@ -35,7 +35,7 @@ dense.fd <- function(mu, X, n, m,
         stop('If mu is a vector, it must be of the same length of grid.')
     
     
-    y0 <- cfda::rep.row(mu,n) + X(grid,n)
+    y0 <- mcfda::rep.row(mu,n) + X(grid,n)
     
     Z <- scale(y0,center=TRUE,scale=FALSE)
     s <- mean(apply(Z^2,2,mean))
