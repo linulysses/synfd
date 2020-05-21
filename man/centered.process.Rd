@@ -4,8 +4,11 @@
 \alias{centered.process}
 \title{create a centered random process objecct}
 \usage{
-centered.process(name = c("WIENER", "WHITE.NOISE", "KL",
-  "KARHUNEN.LOEVE", "GAUSSIAN"), domain = c(0, 1), ...)
+centered.process(
+  name = c("WIENER", "WHITE.NOISE", "KL", "KARHUNEN.LOEVE", "GAUSSIAN"),
+  domain = c(0, 1),
+  ...
+)
 }
 \arguments{
 \item{name}{the name of the process}
@@ -15,7 +18,7 @@ centered.process(name = c("WIENER", "WHITE.NOISE", "KL",
 \item{...}{parameters required to define the process
 \describe{
   \item{dispersion}{required by Wiener process}
-  \item{sigma}{required by white noise process}
+  \item{sig}{required by white noise process}
   \item{eigen.values}{required by process defined via K-L representation}
   \item{eigen.functions}{required by process defined via K-L representation}
   \item{distribution}{the distribution of PC scores, required by process defined via K-L representation}
@@ -29,5 +32,7 @@ create a centered random process objecct
 }
 \examples{
 X <- centered.process(name='wiener',dispersion=1)
+X <- centered.process(name='white.noise',sig=1)
+X <- centered.process(name='KL',domain=c(0,1),eigen.values=1/(2^(1:25)),eigen.functions='FOURIER',distribution='GAUSSIAN',corr=NULL)
 X(regular.grid(50),25)
 }

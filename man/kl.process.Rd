@@ -4,10 +4,13 @@
 \alias{kl.process}
 \title{create a process objecct via K-L representation}
 \usage{
-kl.process(domain = c(0, 1), eigen.values = 1/(2^(1:25)),
+kl.process(
+  domain = c(0, 1),
+  eigen.values = 1/(2^(1:25)),
   eigen.functions = c("FOURIER", "COS", "SIN", "LEGENDRE"),
   distribution = c("GAUSSIAN", "LAPLACE", "EXPONENTIAL", "GAMMA"),
-  corr = NULL)
+  corr = NULL
+)
 }
 \arguments{
 \item{domain}{the domain}
@@ -17,6 +20,8 @@ kl.process(domain = c(0, 1), eigen.values = 1/(2^(1:25)),
 \item{eigen.functions}{the eigenfunctions}
 
 \item{distribution}{the distribution of PC scores}
+
+\item{corr}{a correlation matrix specifying correlation among the random coefficients (default: NULL)}
 }
 \value{
 a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent K-L trajectories observed at tObs

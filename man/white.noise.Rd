@@ -7,7 +7,7 @@
 white.noise(sig = 1)
 }
 \arguments{
-\item{sigma}{the sigma parameter of the white noise process}
+\item{sig}{the sigma parameter of the white noise process}
 }
 \value{
 a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent Wiener trajectories observed at tObs

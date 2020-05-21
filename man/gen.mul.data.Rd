@@ -4,8 +4,13 @@
 \alias{gen.mul.data}
 \title{Generate multivariate data with the given mean vector and covariance matrix}
 \usage{
-gen.mul.data(n = 100, K = 2, mu = rep(0, K), Sigma = diag(K),
-  distribution = c("GAUSSIAN", "LAPLACE", "EXPONENTIAL", "GAMMA"))
+gen.mul.data(
+  n = 100,
+  K = 2,
+  mu = rep(0, K),
+  Sigma = diag(K),
+  distribution = c("GAUSSIAN", "LAPLACE", "EXPONENTIAL")
+)
 }
 \arguments{
 \item{n}{sample size}

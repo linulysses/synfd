@@ -1,14 +1,15 @@
 Package: synfd
 Type: Package
-Title: Synthesize dense or sparse functional data/snippets
+Title: Synthesize Dense or Sparse Functional Data/Snippets
 Version: 0.1.0
 Author: Zhenhua Lin
-Maintainer: The package maintainer <linulysses@gmail.com>
-Description: Synthesize dense or sparse functional data/snippets.
-License: GNU General Public License, version 3
+Maintainer: Zhenhua Lin <stalz@nus.edu.sg>
+Description: A lightweight package to synthesize dense or sparse functional data/snippets
+License: GNU General Public Licence (GPLv3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
-Imports: L1pack,
-         lcmix,
-         mcfda
+RoxygenNote: 7.1.0
+Imports: L1pack, Rdpack
+Suggests: MASS, knitr, rmarkdown
+VignetteBuilder: knitr
+RdMacros: Rdpack

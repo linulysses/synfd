@@ -5,6 +5,7 @@
 #' @param mu mean vector
 #' @param Sigma covariance matrix
 #' @param distribution distribution
+#' @importFrom stats cov2cor rnorm rpois runif
 #' @return a \code{n*K} matrix
 #' @keywords internal
 gen.mul.data <- function(n=100,
@@ -13,8 +14,7 @@ gen.mul.data <- function(n=100,
                          Sigma=diag(K),
                          distribution=c('GAUSSIAN',
                                         'LAPLACE',
-                                        'EXPONENTIAL',
-                                        'GAMMA')
+                                        'EXPONENTIAL')
 )
 {
     distribution <- toupper(distribution)
@@ -47,15 +47,7 @@ gen.mul.data <- function(n=100,
     else if(distribution == 'EXPONENTIAL')
     {
         lam <- 1/sqrt(diag(Sigma))
-        X <- my.rmvexp(n=n,rate=lam,corr=cov2cor(Sigma)) + cfda::rep.row(mu,n) - cfda::rep.row(lam,n)
-    }
-    else if(distribution == 'GAMMA')
-    {
-        v <- diag(Sigma)
-        rate <- 1
-        shape <- v
-        X <- lcmix::rmvgamma(n=n,shape=shape,rate=rate,corr=cov2cor(Sigma)) +
-            cfda::rep.row(mu,n) - cfda::rep.row(v,n)
+        X <- my.rmvexp(n=n,rate=lam,corr=cov2cor(Sigma)) + rep.row(mu,n) - rep.row(lam,n)
     }
     else stop(paste0('Distribution ',distribution,' is not supported.'))
     

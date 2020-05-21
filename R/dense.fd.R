@@ -6,12 +6,12 @@
 #' @param m sampling rate, ignored if \code{grid} is specified
 #' @param domain the domain
 #' @param grid the grid on which the trajectories are observed
-#' @param sig0 the std of measurement errors, if NULL, determined by snr
-#' @param snr  the signal to noise ratio to determine sig0
+#' @param sig the std of measurement errors, if NULL, determined by snr
+#' @param snr  the signal to noise ratio to determine sig
 #' @return a \code{n*m} matrix with the following attributes
-#'      \item{sig0}
+#'      \item{sig}{}
 #'      \item{snr}{signal-to-nois ratio}
-#'      \item{uncontaminated}{n*m matrix of clean observations}
+#'      \item{y0}{n*m matrix of clean observations}
 #'      \item{grid}{a grid of points in \code{domain}}
 #'      \item{domain}{the domain}
 #' @examples
@@ -19,7 +19,7 @@
 #' Y <- dense.fd(mu=cos, X=kl.process(),n=100, m=20)
 #' @export
 dense.fd <- function(mu, X, n, m,
-                     sig0=NULL, snr=5, domain=c(0,1),
+                     sig=NULL, snr=5, domain=c(0,1),
                      grid = seq(domain[1], domain[2], length.out = m))
 {
     
@@ -35,34 +35,35 @@ dense.fd <- function(mu, X, n, m,
         stop('If mu is a vector, it must be of the same length of grid.')
     
     
-    y0 <- mcfda::rep.row(mu,n) + X(grid,n)
+    y0 <- rep.row(mu,n) + X(grid,n)
+ 
     
     Z <- scale(y0,center=TRUE,scale=FALSE)
     s <- mean(apply(Z^2,2,mean))
     
-    if(is.null(sig0))
+    if(is.null(sig))
     {
         if(!is.infinite(snr))
         {
-            sig0 <- sqrt(s/snr)
+            sig <- sqrt(s/snr)
         }
-        else sig0 <- 0
+        else sig <- 0
     }
     else
     {
-        snr <- s/(sig0^2)
+        snr <- s/(sig^2)
     }
     
     
     y <- y0
-    if(sig0 != 0)
+    if(sig != 0)
     {
-        y <- y + sig0 * matrix(rnorm(n*m),nrow=n)
+        y <- y + sig * matrix(rnorm(n*m),nrow=n)
     }
     
-    attr(y,'sig0') <- sig0
+    attr(y,'sig') <- sig
     attr(y,'snr') <- snr
-    attr(y,'uncontaminated') <- y0
+    attr(y,'y0') <- y0
     attr(y,'grid') <- grid
     attr(y,'domain') <- domain
     attr(y,'class') <- 'dense.fd'
@@ -70,10 +71,11 @@ dense.fd <- function(mu, X, n, m,
 }
 
 #' plot densely and regularly observed data
-#' @param y the dense data object generated from \code{dense.fd}
+#' @param x the dense data object generated from \code{dense.fd}
 #' @param ... other parameters passed to \code{matplot}
+#' @importFrom graphics matplot
 #' @export
-plot.dense.fd <- function(y,...)
+plot.dense.fd <- function(x,...)
 {
-    matplot(attr(y,'grid'),t(y),...)
+    matplot(attr(x,'grid'),t(x),...)
 }

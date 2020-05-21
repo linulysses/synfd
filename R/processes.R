@@ -4,7 +4,7 @@
 #' @param ... parameters required to define the process
 #' \describe{
 #'   \item{dispersion}{required by Wiener process}
-#'   \item{sigma}{required by white noise process}
+#'   \item{sig}{required by white noise process}
 #'   \item{eigen.values}{required by process defined via K-L representation}
 #'   \item{eigen.functions}{required by process defined via K-L representation}
 #'   \item{distribution}{the distribution of PC scores, required by process defined via K-L representation}
@@ -12,6 +12,8 @@
 #' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at tObs
 #' @examples
 #' X <- centered.process(name='wiener',dispersion=1)
+#' X <- centered.process(name='white.noise',sig=1)
+#' X <- centered.process(name='KL',domain=c(0,1),eigen.values=1/(2^(1:25)),eigen.functions='FOURIER',distribution='GAUSSIAN',corr=NULL)
 #' X(regular.grid(50),25)
 #' @export
 centered.process <- function(name=c('WIENER',
@@ -34,20 +36,20 @@ centered.process <- function(name=c('WIENER',
     }
     else if (name == 'WHITE.NOISE')
     {
-        X <- white.noise(sigma=get.required.param('sigma',others))
+        X <- white.noise(sig=get.required.param('sig',others))
         attr(X,'name') <- name
-        attr(X,'sigma') <- get.required.param('sigma',others)
+        attr(X,'sig') <- get.required.param('sig',others)
         class(X) <- 'random.process'
     }
     else if (name == 'KL' || name == 'KARHUNEN.LOEVE')
     {
-        X <- kl.process(domain=get.required.param('domain',others),
+        X <- kl.process(domain=domain,
                         eigen.values=get.required.param('eigen.values',others),
                         eigen.functions=get.required.param('eigen.functions',others),
                         distribution=get.required.param('distribution',others),
                         corr=get.required.param('corr',others))
         attr(X,'name') <- name
-        attr(X,'domain') <- get.required.param('domain',others)
+        attr(X,'domain') <- domain
         attr(X,'eigen.values') <- get.required.param('eigen.values',others)
         attr(X,'eigen.functions') <- get.required.param('eigen.functions',others)
         attr(X,'distribution') <- get.required.param('distribution',others)
@@ -108,7 +110,7 @@ wiener.process <- function(dispersion=1)
 
 
 #' create a white noise process objecct
-#' @param sigma the sigma parameter of the white noise process
+#' @param sig the sigma parameter of the white noise process
 #' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent Wiener trajectories observed at tObs
 #' @examples
 #' X <- white.noise()
@@ -126,6 +128,7 @@ white.noise <- function(sig=1)
 #' @param eigen.values the eigenvalues
 #' @param eigen.functions the eigenfunctions
 #' @param distribution the distribution of PC scores
+#' @param corr a correlation matrix specifying correlation among the random coefficients (default: NULL)
 #' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent K-L trajectories observed at tObs
 #' @examples
 #' X <- kl.process()
@@ -181,7 +184,7 @@ sample.from.kl.process <- function(tObs=regular.grid(100),
     k <- length(eigen.values)
     m <- length(tObs)
     
-    phi <- cfda::evaluate.basis(K=k,
+    phi <- evaluate.basis(K=k,
                                 domain=domain,
                                 grid=tObs,
                                 type=eigen.functions)

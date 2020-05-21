@@ -4,8 +4,7 @@
 \alias{sparse.fd}
 \title{Generate sparse functional data}
 \usage{
-sparse.fd(mu, X, n, m, sig0 = NULL, snr = 5, domain = c(0, 1),
-  delta = 1)
+sparse.fd(mu, X, n, m, sig = NULL, snr = 5, domain = c(0, 1), delta = 1)
 }
 \arguments{
 \item{mu}{a function or scalar defining the mean function}
@@ -17,9 +16,9 @@ X(tObs,n) return n*len(tObs) matrix with n trajectories}
 
 \item{m}{sampling rate per trajectory. If \code{m} is an integer, than m_i is sampled from 1+Poison(m-1). If \code{m} is a vector of integers, m_i is sampled uniformly from this vector. If \code{m} is a function, it is then assumed to be a function f such that f(k) randomly generates k positive integers.}
 
-\item{sig0}{the std of measurement errors, if NULL, determined by snr}
+\item{sig}{the std of measurement errors, if NULL, determined by snr}
 
-\item{snr}{the signal to noise ratio to determine sig0}
+\item{snr}{the signal to noise ratio to determine sig}
 
 \item{domain}{the domain}
 
@@ -29,14 +28,12 @@ X(tObs,n) return n*len(tObs) matrix with n trajectories}
 a list of two members
   \item{t}{a list of \code{n} items, each being a nondecreasing vector that represents the time points of observations for a subject}
   \item{y}{a list of \code{n} items, each being a vector representing the observations corresponding to \code{t}}
-
   and the following attributes
-
-     \item{sig0}
+     \item{sig}{}
      \item{snr}{signal-to-nois ratio}
-     \item{uncontaminated}{clean version of \code{y}}
+     \item{y0}{clean version of \code{y}}
      \item{domain}{the domain}
-     \item{delta}
+     \item{delta}{}
 }
 \description{
 Generate sparse functional data
@@ -50,4 +47,7 @@ Y <- sparse.fd(mu=cos, X=kl.process(eigen.values=1/(2^(1:25)),eigen.functions='F
 
 # generate samples with mi sample from 2,4,6
 Y <- sparse.fd(mu=1, X=gaussian.process(cov=matern), n=10, m=c(2,4,6))
+}
+\references{
+\insertRef{Lin2020}{synfd}
 }

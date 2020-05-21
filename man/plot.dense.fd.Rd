@@ -4,10 +4,10 @@
 \alias{plot.dense.fd}
 \title{plot densely and regularly observed data}
 \usage{
-\method{plot}{dense.fd}(y, ...)
+\method{plot}{dense.fd}(x, ...)
 }
 \arguments{
-\item{y}{the dense data object generated from \code{dense.fd}}
+\item{x}{the dense data object generated from \code{dense.fd}}
 
 \item{...}{other parameters passed to \code{matplot}}
 }

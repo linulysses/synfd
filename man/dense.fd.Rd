@@ -4,8 +4,16 @@
 \alias{dense.fd}
 \title{Generate functional data on a dense grid}
 \usage{
-dense.fd(mu, X, n, m, sig0 = NULL, snr = 5, domain = c(0, 1),
-  grid = seq(domain[1], domain[2], length.out = m))
+dense.fd(
+  mu,
+  X,
+  n,
+  m,
+  sig = NULL,
+  snr = 5,
+  domain = c(0, 1),
+  grid = seq(domain[1], domain[2], length.out = m)
+)
 }
 \arguments{
 \item{mu}{a function, scalar or a vector defining the mean function}
@@ -17,9 +25,9 @@ X(tObs,n) return n*len(tObs) matrix with n trajectories}
 
 \item{m}{sampling rate, ignored if \code{grid} is specified}
 
-\item{sig0}{the std of measurement errors, if NULL, determined by snr}
+\item{sig}{the std of measurement errors, if NULL, determined by snr}
 
-\item{snr}{the signal to noise ratio to determine sig0}
+\item{snr}{the signal to noise ratio to determine sig}
 
 \item{domain}{the domain}
 
@@ -27,9 +35,9 @@ X(tObs,n) return n*len(tObs) matrix with n trajectories}
 }
 \value{
 a \code{n*m} matrix with the following attributes
-     \item{sig0}
+     \item{sig}{}
      \item{snr}{signal-to-nois ratio}
-     \item{uncontaminated}{n*m matrix of clean observations}
+     \item{y0}{n*m matrix of clean observations}
      \item{grid}{a grid of points in \code{domain}}
      \item{domain}{the domain}
 }
