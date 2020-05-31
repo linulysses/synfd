@@ -1,7 +1,7 @@
-#' create a centered random process objecct
-#' @param name the name of the process
-#' @param domain the domain where the process is defined
-#' @param ... parameters required to define the process
+#' Create a Centered Random Process
+#' @param name name of the process.
+#' @param domain domain where the process is defined.
+#' @param ... other parameters required to define the process:
 #' \describe{
 #'   \item{dispersion}{required by Wiener process}
 #'   \item{sig}{required by white noise process}
@@ -9,11 +9,10 @@
 #'   \item{eigen.functions}{required by process defined via K-L representation}
 #'   \item{distribution}{the distribution of PC scores, required by process defined via K-L representation}
 #' }
-#' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at tObs
+#' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at \code{tObs}
 #' @examples
 #' X <- centered.process(name='wiener',dispersion=1)
 #' X <- centered.process(name='white.noise',sig=1)
-#' X <- centered.process(name='KL',domain=c(0,1),eigen.values=1/(2^(1:25)),eigen.functions='FOURIER',distribution='GAUSSIAN',corr=NULL)
 #' X(regular.grid(50),25)
 #' @export
 centered.process <- function(name=c('WIENER',
@@ -71,9 +70,10 @@ centered.process <- function(name=c('WIENER',
 
 
 
-#' create a centered Gaussian process objecct
-#' @param cov a function handle that defines covariance function. It shall take two arguments arg1 and arg2, both are vectors, and \code{cov(arg1,arg2)} returns a matrix \code{R} such that \code{R(i,j)} is the value of the covariance function at \code{(arg1[i],arg2[j])}
-#' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent Gaussian trajectories observed at tObs
+#' Create a Centered Gaussian Process
+#' @param cov a function handle that defines covariance function; see details.
+#' @details The parameter \code{cov} shall take two arguments arg1 and arg2 as input, both are vectors, and \code{cov(arg1,arg2)} returns a matrix \code{R} such that \code{R(i,j)} is the value of the covariance function at \code{(arg1[i],arg2[j])}. 
+#' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at \code{tObs}.
 #' @examples
 #' X <- gaussian.process()
 #' X(regular.grid(50),25)
@@ -86,9 +86,9 @@ gaussian.process <- function(cov=matern)
 }
 
 
-#' create a Wiener process objecct
-#' @param dispersion the dispersion parameter of the Wiener process
-#' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent Wiener trajectories observed at tObs
+#' Create a Wiener Process
+#' @param dispersion the dispersion parameter of the Wiener process.
+#' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at \code{tObs}.
 #' @examples
 #' X <- wiener.process()
 #' X(regular.grid(50),25)
@@ -109,9 +109,9 @@ wiener.process <- function(dispersion=1)
 }
 
 
-#' create a white noise process objecct
-#' @param sig the sigma parameter of the white noise process
-#' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent Wiener trajectories observed at tObs
+#' Create a White Noise Process
+#' @param sig sigma parameter of the white noise process
+#' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at \code{tObs}.
 #' @examples
 #' X <- white.noise()
 #' X(regular.grid(50),25)
@@ -123,13 +123,13 @@ white.noise <- function(sig=1)
     return(f)
 }
 
-#' create a process objecct via K-L representation
-#' @param domain the domain
-#' @param eigen.values the eigenvalues
-#' @param eigen.functions the eigenfunctions
-#' @param distribution the distribution of PC scores
-#' @param corr a correlation matrix specifying correlation among the random coefficients (default: NULL)
-#' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent K-L trajectories observed at tObs
+#' Create a Process via Karhunen-Loeve Representation
+#' @param domain domain of the process.
+#' @param eigen.values vector of eigenvalues in the K-L expansion.
+#' @param eigen.functions string that specifies the eigenfunctions in the K-L expansion.
+#' @param distribution string specifying the distribution of FPC scores.
+#' @param corr correlation matrix optionally specifying correlation among the random coefficients; default: NULL.
+#' @return a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at \code{tObs}.
 #' @examples
 #' X <- kl.process()
 #' X(regular.grid(50),25)
@@ -208,10 +208,11 @@ sample.from.kl.process <- function(tObs=regular.grid(100),
 #' The Matern covariance function
 #' @param x a vector
 #' @param y If NULL, then y=x.
-#' @param nu see https://en.wikipedia.org/wiki/Mat?rn_covariance_function
-#' @param rho see https://en.wikipedia.org/wiki/Mat?rn_covariance_function
-#' @param sig see https://en.wikipedia.org/wiki/Mat?rn_covariance_function
-#' @return A matrix M of len(X)*len(Y) is returned, where M(i,j)=C(X(i),Y(j))
+#' @param nu positive number specifying smoothness of the function.
+#' @param rho scale parameter
+#' @param sig magnitude parameter
+#' @details The precise definition of Matern covariance function can be found in see https://en.wikipedia.org/wiki/Matern_covariance_function.
+#' @return matrix of dimension length(x)*length(y), where the (i,j) entry of the matrix is the Matern covariance evaluated at the point (X(i),Y(j)).
 #' @export
 matern <- function(x,y=NULL,nu=1,rho=1,sig=1)
 {
@@ -220,14 +221,14 @@ matern <- function(x,y=NULL,nu=1,rho=1,sig=1)
     G <- expand.grid(x,x)
     
     S <- apply(G,1,function(z){
-        delta <- abs(z[1]-z[2])/rho
+        delta <- abs(z[1]-z[2]) / rho
         if(delta == 0)
-            0.25^2
+            1
         else
-            0.25^2 * (sqrt(2*nu)*delta)^nu * besselK(sqrt(2*nu)*delta,nu=nu) / (2^(nu-1)*gamma(nu))
+            (sqrt(2*nu)*delta)^nu * besselK(sqrt(2*nu)*delta,nu=nu)
     })
     
-    C <- sig^2 * matrix(S,nrow=length(x),ncol=length(y),byrow=F)
+    C <- (sig^2 * (2^(1-nu)) / gamma(nu)) * matrix(S,nrow=length(x),ncol=length(y),byrow=F)
     return(C)
 }
 

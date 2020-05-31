@@ -5,7 +5,7 @@
 #' @param mu mean vector
 #' @param Sigma covariance matrix
 #' @param distribution distribution
-#' @importFrom stats cov2cor rnorm rpois runif
+#' @importFrom stats cov2cor rnorm rpois runif rexp
 #' @return a \code{n*K} matrix
 #' @keywords internal
 gen.mul.data <- function(n=100,
@@ -19,18 +19,7 @@ gen.mul.data <- function(n=100,
 {
     distribution <- toupper(distribution)
     distribution <- match.arg(distribution)
-    
-    # fix the bug of lcmix::rmvexp when n=1
-    my.rmvexp <- function(n,rate,corr)
-    {
-        if(n > 1)
-            lcmix::rmvexp(n=n,rate=lam,corr=cov2cor(Sigma))
-        else
-        {
-            z <- lcmix::rmvexp(n=2,rate=lam,corr=cov2cor(Sigma))
-            z <- z[1,]
-        }
-    }
+
     
     if(length(mu) != K){
         stop("Make sure that 'K' and the lenght of 'mu' is equal.")
@@ -47,9 +36,16 @@ gen.mul.data <- function(n=100,
     else if(distribution == 'EXPONENTIAL')
     {
         lam <- 1/sqrt(diag(Sigma))
-        X <- my.rmvexp(n=n,rate=lam,corr=cov2cor(Sigma)) + rep.row(mu,n) - rep.row(lam,n)
+        K <- length(lam)
+        X <- matrix(rexp(n*K),n,K) %*% sqrtm(Sigma) + rep.row(mu,n) - rep.row(lam,n)
     }
     else stop(paste0('Distribution ',distribution,' is not supported.'))
     
     return(X)
+}
+
+sqrtm <- function(X)
+{
+    tmp <- svd(X)
+    tmp$u %*% diag(sqrt(tmp$d)) %*% t(tmp$u)
 }

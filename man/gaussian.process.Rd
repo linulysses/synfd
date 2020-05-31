@@ -2,18 +2,21 @@
 % Please edit documentation in R/processes.R
 \name{gaussian.process}
 \alias{gaussian.process}
-\title{create a centered Gaussian process objecct}
+\title{Create a Centered Gaussian Process}
 \usage{
 gaussian.process(cov = matern)
 }
 \arguments{
-\item{cov}{a function handle that defines covariance function. It shall take two arguments arg1 and arg2, both are vectors, and \code{cov(arg1,arg2)} returns a matrix \code{R} such that \code{R(i,j)} is the value of the covariance function at \code{(arg1[i],arg2[j])}}
+\item{cov}{a function handle that defines covariance function; see details.}
 }
 \value{
-a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent Gaussian trajectories observed at tObs
+a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at \code{tObs}.
 }
 \description{
-create a centered Gaussian process objecct
+Create a Centered Gaussian Process
+}
+\details{
+The parameter \code{cov} shall take two arguments arg1 and arg2 as input, both are vectors, and \code{cov(arg1,arg2)} returns a matrix \code{R} such that \code{R(i,j)} is the value of the covariance function at \code{(arg1[i],arg2[j])}.
 }
 \examples{
 X <- gaussian.process()

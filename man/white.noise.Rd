@@ -2,18 +2,18 @@
 % Please edit documentation in R/processes.R
 \name{white.noise}
 \alias{white.noise}
-\title{create a white noise process objecct}
+\title{Create a White Noise Process}
 \usage{
 white.noise(sig = 1)
 }
 \arguments{
-\item{sig}{the sigma parameter of the white noise process}
+\item{sig}{sigma parameter of the white noise process}
 }
 \value{
-a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent Wiener trajectories observed at tObs
+a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at \code{tObs}.
 }
 \description{
-create a white noise process objecct
+Create a White Noise Process
 }
 \examples{
 X <- white.noise()

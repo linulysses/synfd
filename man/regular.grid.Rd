@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility.R
 \name{regular.grid}
 \alias{regular.grid}
-\title{generate a regular grid of points on a given interval}
+\title{Generate a Regular Grid}
 \usage{
 regular.grid(M = 100, domain = c(0, 1), h = 1/(2 * M))
 }
@@ -13,6 +13,9 @@ regular.grid(M = 100, domain = c(0, 1), h = 1/(2 * M))
 
 \item{h}{margin at boundaries}
 }
+\value{
+equally spaced \code{M} points in \code{domain}.
+}
 \description{
-generate a regular grid of points on a given interval
+Generate a Regular Grid
 }

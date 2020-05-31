@@ -11,15 +11,18 @@ matern(x, y = NULL, nu = 1, rho = 1, sig = 1)
 
 \item{y}{If NULL, then y=x.}
 
-\item{nu}{see https://en.wikipedia.org/wiki/Mat?rn_covariance_function}
+\item{nu}{positive number specifying smoothness of the function.}
 
-\item{rho}{see https://en.wikipedia.org/wiki/Mat?rn_covariance_function}
+\item{rho}{scale parameter}
 
-\item{sig}{see https://en.wikipedia.org/wiki/Mat?rn_covariance_function}
+\item{sig}{magnitude parameter}
 }
 \value{
-A matrix M of len(X)*len(Y) is returned, where M(i,j)=C(X(i),Y(j))
+matrix of dimension length(x)*length(y), where the (i,j) entry of the matrix is the Matern covariance evaluated at the point (X(i),Y(j)).
 }
 \description{
 The Matern covariance function
+}
+\details{
+The precise definition of Matern covariance function can be found in see https://en.wikipedia.org/wiki/Matern_covariance_function.
 }

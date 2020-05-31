@@ -2,7 +2,7 @@
 % Please edit documentation in R/processes.R
 \name{centered.process}
 \alias{centered.process}
-\title{create a centered random process objecct}
+\title{Create a Centered Random Process}
 \usage{
 centered.process(
   name = c("WIENER", "WHITE.NOISE", "KL", "KARHUNEN.LOEVE", "GAUSSIAN"),
@@ -11,11 +11,11 @@ centered.process(
 )
 }
 \arguments{
-\item{name}{the name of the process}
+\item{name}{name of the process.}
 
-\item{domain}{the domain where the process is defined}
+\item{domain}{domain where the process is defined.}
 
-\item{...}{parameters required to define the process
+\item{...}{other parameters required to define the process:
 \describe{
   \item{dispersion}{required by Wiener process}
   \item{sig}{required by white noise process}
@@ -25,14 +25,13 @@ centered.process(
 }}
 }
 \value{
-a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at tObs
+a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at \code{tObs}
 }
 \description{
-create a centered random process objecct
+Create a Centered Random Process
 }
 \examples{
 X <- centered.process(name='wiener',dispersion=1)
 X <- centered.process(name='white.noise',sig=1)
-X <- centered.process(name='KL',domain=c(0,1),eigen.values=1/(2^(1:25)),eigen.functions='FOURIER',distribution='GAUSSIAN',corr=NULL)
 X(regular.grid(50),25)
 }

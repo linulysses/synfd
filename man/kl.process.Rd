@@ -2,7 +2,7 @@
 % Please edit documentation in R/processes.R
 \name{kl.process}
 \alias{kl.process}
-\title{create a process objecct via K-L representation}
+\title{Create a Process via Karhunen-Loeve Representation}
 \usage{
 kl.process(
   domain = c(0, 1),
@@ -13,21 +13,21 @@ kl.process(
 )
 }
 \arguments{
-\item{domain}{the domain}
+\item{domain}{domain of the process.}
 
-\item{eigen.values}{the eigenvalues}
+\item{eigen.values}{vector of eigenvalues in the K-L expansion.}
 
-\item{eigen.functions}{the eigenfunctions}
+\item{eigen.functions}{string that specifies the eigenfunctions in the K-L expansion.}
 
-\item{distribution}{the distribution of PC scores}
+\item{distribution}{string specifying the distribution of FPC scores.}
 
-\item{corr}{a correlation matrix specifying correlation among the random coefficients (default: NULL)}
+\item{corr}{correlation matrix optionally specifying correlation among the random coefficients; default: NULL.}
 }
 \value{
-a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent K-L trajectories observed at tObs
+a function hanlde in the form of \code{X(tObs,n)} which generates \code{n} independent trajectories observed at \code{tObs}.
 }
 \description{
-create a process objecct via K-L representation
+Create a Process via Karhunen-Loeve Representation
 }
 \examples{
 X <- kl.process()

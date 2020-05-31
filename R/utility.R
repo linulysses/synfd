@@ -7,10 +7,11 @@ get.required.param <- function(name,params)
     params[[i]]
 }
 
-#' generate a regular grid of points on a given interval
+#' Generate a Regular Grid
 #' @param M the number of points
 #' @param domain the interval
 #' @param h margin at boundaries
+#' @return equally spaced \code{M} points in \code{domain}.
 #' @export
 regular.grid <- function(M=100,domain=c(0,1),h=1/(2*M))
 {
@@ -42,13 +43,12 @@ rep.col <- function(x,n){
 }
 
 
-#' Evaluate orthonormal basis functions on a grid
-#'
-#' @param K A positive integer specifying the number of eigenfunctions to generate.
-#' @param domain the domain on which basis functions are defined
-#' @param m the number of equispaced points on \code{domain}
-#' @param grid A vector specifying the time points to evaluate the basis functions. If \code{grid} is supplied, then \code{m} is ignored
-#' @param type A string for the type of orthogonal basis.
+#' Evaluate Orthonormal Basis Functions
+#' @param K positive integer specifying the number of basis functions to be included
+#' @param domain domain on which basis functions are defined.
+#' @param m number of equispaced points on \code{domain}.
+#' @param grid vector specifying the time points to evaluate the basis functions; if \code{grid} is specified, then \code{m} is ignored.
+#' @param type string for the type of orthogonal basis.
 #' @return A \code{m} by \code{K} matrix, where rows index basis functions while columns index points in the grid.
 #'
 #' @examples

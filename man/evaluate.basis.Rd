@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility.R
 \name{evaluate.basis}
 \alias{evaluate.basis}
-\title{Evaluate orthonormal basis functions on a grid}
+\title{Evaluate Orthonormal Basis Functions}
 \usage{
 evaluate.basis(
   K,
@@ -13,21 +13,21 @@ evaluate.basis(
 )
 }
 \arguments{
-\item{K}{A positive integer specifying the number of eigenfunctions to generate.}
+\item{K}{positive integer specifying the number of basis functions to be included}
 
-\item{m}{the number of equispaced points on \code{domain}}
+\item{m}{number of equispaced points on \code{domain}.}
 
-\item{domain}{the domain on which basis functions are defined}
+\item{domain}{domain on which basis functions are defined.}
 
-\item{grid}{A vector specifying the time points to evaluate the basis functions. If \code{grid} is supplied, then \code{m} is ignored}
+\item{grid}{vector specifying the time points to evaluate the basis functions; if \code{grid} is specified, then \code{m} is ignored.}
 
-\item{type}{A string for the type of orthogonal basis.}
+\item{type}{string for the type of orthogonal basis.}
 }
 \value{
 A \code{m} by \code{K} matrix, where rows index basis functions while columns index points in the grid.
 }
 \description{
-Evaluate orthonormal basis functions on a grid
+Evaluate Orthonormal Basis Functions
 }
 \examples{
 basis <- evaluate.basis(3, type='fourier')
