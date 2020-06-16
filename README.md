@@ -2,7 +2,7 @@
 Synthesize dense/sparse functional data/snippets
 
 ## Install
-devtools::install_github("linulysses/synfd")
+devtools::install_github("linulysses/synfd")  or  install.packages('synfd')
 
 ## Examples
 
