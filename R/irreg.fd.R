@@ -54,7 +54,7 @@ irreg.fd <- function(mu=0, X=wiener.process(), n=100, m=5,
     
     L <- domain[2]-domain[1]
     O <- runif(n,min=domain[1],max=domain[2]-delta*L)
-    Lt <- sapply(1:n,function(i){
+    Lt <- lapply(1:n,function(i){
         s <- O[i]
         sort(runif(mi[i], min=s, max=s+delta*L))
     })
@@ -118,3 +118,4 @@ plot.sparse.fd <- function(x,...)
         }
     }
 }
+
