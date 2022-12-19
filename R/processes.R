@@ -225,10 +225,11 @@ matern <- function(x,y=NULL,nu=1,rho=1,sig=1)
         if(delta == 0)
             1
         else
-            (sqrt(2*nu)*delta)^nu * besselK(sqrt(2*nu)*delta,nu=nu)
+            (2^(1-nu) / gamma(nu)) * (sqrt(2*nu)*delta)^nu * besselK(sqrt(2*nu)*delta,nu=nu)
     })
     
-    C <- (sig^2 * (2^(1-nu)) / gamma(nu)) * matrix(S,nrow=length(x),ncol=length(y),byrow=F)
+    C <- sig^2 * matrix(S,nrow=length(x),ncol=length(y),byrow=F)
     return(C)
 }
+
 
